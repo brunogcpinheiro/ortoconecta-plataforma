@@ -1,0 +1,53 @@
+{
+  "connection": "default",
+  "collectionName": "speciality",
+  "info": {
+    "name": "speciality",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "default": "",
+      "minLength": 3,
+      "type": "string",
+      "required": true
+    },
+    "author": {
+      "default": "",
+      "minLength": 3,
+      "type": "string",
+      "required": true
+    },
+    "author_avatar": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": false
+    },
+    "article": {
+      "default": "",
+      "type": "text",
+      "required": true
+    },
+    "speciality": {
+      "default": "",
+      "minLength": 3,
+      "type": "string",
+      "required": true
+    },
+    "material": {
+      "collection": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": false
+    },
+    "publishedAt": {
+      "default": "",
+      "type": "date",
+      "required": true
+    }
+  }
+}
