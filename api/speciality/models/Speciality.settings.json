@@ -39,7 +39,7 @@
       "required": true
     },
     "material": {
-      "collection": "file",
+      "model": "file",
       "via": "related",
       "plugin": "upload",
       "required": false
