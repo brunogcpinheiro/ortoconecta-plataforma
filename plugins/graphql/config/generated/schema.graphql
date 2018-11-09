@@ -14,6 +14,14 @@ type createSpecialityPayload {
   speciality: Speciality
 }
 
+input createTipsInput {
+  data: TipsInput
+}
+
+type createTipsPayload {
+  tip: Tips
+}
+
 input createUserInput {
   data: UserInput
 }
@@ -41,6 +49,14 @@ input deleteSpecialityInput {
 
 type deleteSpecialityPayload {
   speciality: Speciality
+}
+
+input deleteTipsInput {
+  where: InputID
+}
+
+type deleteTipsPayload {
+  tip: Tips
 }
 
 input deleteUserInput {
@@ -72,12 +88,15 @@ The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://
 """
 scalar JSON
 
-union Morph = Speciality | createSpecialityPayload | updateSpecialityPayload | deleteSpecialityPayload | SpecialityConnection | SpecialityAggregator | SpecialityGroupBy | SpecialityConnection_id | SpecialityConnectionCreatedAt | SpecialityConnectionUpdatedAt | SpecialityConnectionTitle | SpecialityConnectionAuthor | SpecialityConnectionAuthor_avatar | SpecialityConnectionArticle | SpecialityConnectionSpeciality | SpecialityConnectionMaterial | SpecialityConnectionPublishedAt | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
+union Morph = Speciality | createSpecialityPayload | updateSpecialityPayload | deleteSpecialityPayload | SpecialityConnection | SpecialityAggregator | SpecialityGroupBy | SpecialityConnection_id | SpecialityConnectionCreatedAt | SpecialityConnectionUpdatedAt | SpecialityConnectionTitle | SpecialityConnectionAuthor | SpecialityConnectionAuthor_avatar | SpecialityConnectionArticle | SpecialityConnectionSpeciality | SpecialityConnectionMaterial | SpecialityConnectionPublishedAt | Tips | createTipsPayload | updateTipsPayload | deleteTipsPayload | TipsConnection | TipsAggregator | TipsGroupBy | TipsConnection_id | TipsConnectionCreatedAt | TipsConnectionUpdatedAt | TipsConnectionTitle | TipsConnectionPublishedAt | TipsConnectionMaterial | TipsConnectionDescription | TipsConnectionTips_image | TipsConnectionPages | TipsConnectionAuthor | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
 
 type Mutation {
   createSpeciality(input: createSpecialityInput): createSpecialityPayload
   updateSpeciality(input: updateSpecialityInput): updateSpecialityPayload
   deleteSpeciality(input: deleteSpecialityInput): deleteSpecialityPayload
+  createTips(input: createTipsInput): createTipsPayload
+  updateTips(input: updateTipsInput): updateTipsPayload
+  deleteTips(input: deleteTipsInput): deleteTipsPayload
 
   """Create a new role"""
   createRole(input: createRoleInput): createRolePayload
@@ -97,6 +116,9 @@ type Query {
   speciality(id: ID!): Speciality
   specialities(sort: String, limit: Int, start: Int, where: JSON): [Speciality]
   specialitiesConnection(sort: String, limit: Int, start: Int, where: JSON): SpecialityConnection
+  tip(id: ID!): Tips
+  tips(sort: String, limit: Int, start: Int, where: JSON): [Tips]
+  tipsConnection(sort: String, limit: Int, start: Int, where: JSON): TipsConnection
   files(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
   filesConnection(sort: String, limit: Int, start: Int, where: JSON): UploadFileConnection
   role(id: ID!): UsersPermissionsRole
@@ -119,6 +141,7 @@ input RoleInput {
   users: [ID]
 }
 
+"""Especialidades ligadas à Orto Conecta"""
 type Speciality {
   _id: ID!
   createdAt: DateTime!
@@ -215,6 +238,103 @@ input SpecialityInput {
   publishedAt: DateTime!
 }
 
+"""Dicas com materiais baixáveis."""
+type Tips {
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  publishedAt: DateTime!
+  material: UploadFile
+  description: String!
+  tips_image: UploadFile
+  pages: String!
+  author: String!
+}
+
+type TipsAggregator {
+  count: Int
+}
+
+type TipsConnection {
+  values: [Tips]
+  groupBy: TipsGroupBy
+  aggregate: TipsAggregator
+}
+
+type TipsConnection_id {
+  key: ID
+  connection: TipsConnection
+}
+
+type TipsConnectionAuthor {
+  key: String
+  connection: TipsConnection
+}
+
+type TipsConnectionCreatedAt {
+  key: DateTime
+  connection: TipsConnection
+}
+
+type TipsConnectionDescription {
+  key: String
+  connection: TipsConnection
+}
+
+type TipsConnectionMaterial {
+  key: ID
+  connection: TipsConnection
+}
+
+type TipsConnectionPages {
+  key: String
+  connection: TipsConnection
+}
+
+type TipsConnectionPublishedAt {
+  key: DateTime
+  connection: TipsConnection
+}
+
+type TipsConnectionTips_image {
+  key: ID
+  connection: TipsConnection
+}
+
+type TipsConnectionTitle {
+  key: String
+  connection: TipsConnection
+}
+
+type TipsConnectionUpdatedAt {
+  key: DateTime
+  connection: TipsConnection
+}
+
+type TipsGroupBy {
+  _id: [TipsConnection_id]
+  createdAt: [TipsConnectionCreatedAt]
+  updatedAt: [TipsConnectionUpdatedAt]
+  title: [TipsConnectionTitle]
+  publishedAt: [TipsConnectionPublishedAt]
+  material: [TipsConnectionMaterial]
+  description: [TipsConnectionDescription]
+  tips_image: [TipsConnectionTips_image]
+  pages: [TipsConnectionPages]
+  author: [TipsConnectionAuthor]
+}
+
+input TipsInput {
+  title: String!
+  publishedAt: DateTime!
+  material: ID
+  description: String!
+  tips_image: ID
+  pages: String!
+  author: String!
+}
+
 input updateRoleInput {
   where: InputID
   data: RoleInput
@@ -231,6 +351,15 @@ input updateSpecialityInput {
 
 type updateSpecialityPayload {
   speciality: Speciality
+}
+
+input updateTipsInput {
+  where: InputID
+  data: TipsInput
+}
+
+type updateTipsPayload {
+  tip: Tips
 }
 
 input updateUserInput {
