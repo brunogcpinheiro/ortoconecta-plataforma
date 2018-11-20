@@ -1,3 +1,116 @@
+"""Cursos e eventos Orto Conecta."""
+type Course {
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  course_image: UploadFile
+  sold_out: Boolean!
+  price: String!
+  local: String!
+  date_event: String!
+  author: String!
+}
+
+type CourseAggregator {
+  count: Int
+}
+
+type CourseConnection {
+  values: [Course]
+  groupBy: CourseGroupBy
+  aggregate: CourseAggregator
+}
+
+type CourseConnection_id {
+  key: ID
+  connection: CourseConnection
+}
+
+type CourseConnectionAuthor {
+  key: String
+  connection: CourseConnection
+}
+
+type CourseConnectionCourse_image {
+  key: ID
+  connection: CourseConnection
+}
+
+type CourseConnectionCreatedAt {
+  key: DateTime
+  connection: CourseConnection
+}
+
+type CourseConnectionDate_event {
+  key: String
+  connection: CourseConnection
+}
+
+type CourseConnectionLocal {
+  key: String
+  connection: CourseConnection
+}
+
+type CourseConnectionPrice {
+  key: String
+  connection: CourseConnection
+}
+
+type CourseConnectionSold_out {
+  key: Boolean
+  connection: CourseConnection
+}
+
+type CourseConnectionTitle {
+  key: String
+  connection: CourseConnection
+}
+
+type CourseConnectionUpdatedAt {
+  key: DateTime
+  connection: CourseConnection
+}
+
+type CourseGroupBy {
+  _id: [CourseConnection_id]
+  createdAt: [CourseConnectionCreatedAt]
+  updatedAt: [CourseConnectionUpdatedAt]
+  title: [CourseConnectionTitle]
+  course_image: [CourseConnectionCourse_image]
+  sold_out: [CourseConnectionSold_out]
+  price: [CourseConnectionPrice]
+  local: [CourseConnectionLocal]
+  date_event: [CourseConnectionDate_event]
+  author: [CourseConnectionAuthor]
+}
+
+input CourseInput {
+  title: String!
+  course_image: ID
+  sold_out: Boolean!
+  price: String!
+  local: String!
+  date_event: String!
+  author: String!
+}
+
+input createCourseInput {
+  data: CourseInput
+}
+
+type createCoursePayload {
+  course: Course
+}
+
+input createMaterialInput {
+  data: MaterialInput
+}
+
+type createMaterialPayload {
+  material: Material
+}
+
 input createRoleInput {
   data: RoleInput
 }
@@ -14,14 +127,6 @@ type createSpecialityPayload {
   speciality: Speciality
 }
 
-input createTipsInput {
-  data: TipsInput
-}
-
-type createTipsPayload {
-  tip: Tips
-}
-
 input createUserInput {
   data: UserInput
 }
@@ -34,6 +139,22 @@ type createUserPayload {
 The `DateTime` scalar represents a date and time following the ISO 8601 standard
 """
 scalar DateTime
+
+input deleteCourseInput {
+  where: InputID
+}
+
+type deleteCoursePayload {
+  course: Course
+}
+
+input deleteMaterialInput {
+  where: InputID
+}
+
+type deleteMaterialPayload {
+  material: Material
+}
 
 input deleteRoleInput {
   where: InputID
@@ -49,14 +170,6 @@ input deleteSpecialityInput {
 
 type deleteSpecialityPayload {
   speciality: Speciality
-}
-
-input deleteTipsInput {
-  where: InputID
-}
-
-type deleteTipsPayload {
-  tip: Tips
 }
 
 input deleteUserInput {
@@ -88,15 +201,115 @@ The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://
 """
 scalar JSON
 
-union Morph = Speciality | createSpecialityPayload | updateSpecialityPayload | deleteSpecialityPayload | SpecialityConnection | SpecialityAggregator | SpecialityGroupBy | SpecialityConnection_id | SpecialityConnectionCreatedAt | SpecialityConnectionUpdatedAt | SpecialityConnectionTitle | SpecialityConnectionAuthor | SpecialityConnectionAuthor_avatar | SpecialityConnectionArticle | SpecialityConnectionSpeciality | SpecialityConnectionMaterial | SpecialityConnectionPublishedAt | Tips | createTipsPayload | updateTipsPayload | deleteTipsPayload | TipsConnection | TipsAggregator | TipsGroupBy | TipsConnection_id | TipsConnectionCreatedAt | TipsConnectionUpdatedAt | TipsConnectionTitle | TipsConnectionPublishedAt | TipsConnectionMaterial | TipsConnectionDescription | TipsConnectionTips_image | TipsConnectionPages | TipsConnectionAuthor | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
+"""Materiais baixáveis."""
+type Material {
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  publishedAt: DateTime!
+  material: UploadFile
+  description: String!
+  material_image: UploadFile
+  pages: String!
+  author: String!
+}
+
+type MaterialAggregator {
+  count: Int
+}
+
+type MaterialConnection {
+  values: [Material]
+  groupBy: MaterialGroupBy
+  aggregate: MaterialAggregator
+}
+
+type MaterialConnection_id {
+  key: ID
+  connection: MaterialConnection
+}
+
+type MaterialConnectionAuthor {
+  key: String
+  connection: MaterialConnection
+}
+
+type MaterialConnectionCreatedAt {
+  key: DateTime
+  connection: MaterialConnection
+}
+
+type MaterialConnectionDescription {
+  key: String
+  connection: MaterialConnection
+}
+
+type MaterialConnectionMaterial {
+  key: ID
+  connection: MaterialConnection
+}
+
+type MaterialConnectionMaterial_image {
+  key: ID
+  connection: MaterialConnection
+}
+
+type MaterialConnectionPages {
+  key: String
+  connection: MaterialConnection
+}
+
+type MaterialConnectionPublishedAt {
+  key: DateTime
+  connection: MaterialConnection
+}
+
+type MaterialConnectionTitle {
+  key: String
+  connection: MaterialConnection
+}
+
+type MaterialConnectionUpdatedAt {
+  key: DateTime
+  connection: MaterialConnection
+}
+
+type MaterialGroupBy {
+  _id: [MaterialConnection_id]
+  createdAt: [MaterialConnectionCreatedAt]
+  updatedAt: [MaterialConnectionUpdatedAt]
+  title: [MaterialConnectionTitle]
+  publishedAt: [MaterialConnectionPublishedAt]
+  material: [MaterialConnectionMaterial]
+  description: [MaterialConnectionDescription]
+  material_image: [MaterialConnectionMaterial_image]
+  pages: [MaterialConnectionPages]
+  author: [MaterialConnectionAuthor]
+}
+
+input MaterialInput {
+  title: String!
+  publishedAt: DateTime!
+  material: ID
+  description: String!
+  material_image: ID
+  pages: String!
+  author: String!
+}
+
+union Morph = Course | createCoursePayload | updateCoursePayload | deleteCoursePayload | CourseConnection | CourseAggregator | CourseGroupBy | CourseConnection_id | CourseConnectionCreatedAt | CourseConnectionUpdatedAt | CourseConnectionTitle | CourseConnectionCourse_image | CourseConnectionSold_out | CourseConnectionPrice | CourseConnectionLocal | CourseConnectionDate_event | CourseConnectionAuthor | Material | createMaterialPayload | updateMaterialPayload | deleteMaterialPayload | MaterialConnection | MaterialAggregator | MaterialGroupBy | MaterialConnection_id | MaterialConnectionCreatedAt | MaterialConnectionUpdatedAt | MaterialConnectionTitle | MaterialConnectionPublishedAt | MaterialConnectionMaterial | MaterialConnectionDescription | MaterialConnectionMaterial_image | MaterialConnectionPages | MaterialConnectionAuthor | Speciality | createSpecialityPayload | updateSpecialityPayload | deleteSpecialityPayload | SpecialityConnection | SpecialityAggregator | SpecialityGroupBy | SpecialityConnection_id | SpecialityConnectionCreatedAt | SpecialityConnectionUpdatedAt | SpecialityConnectionTitle | SpecialityConnectionAuthor | SpecialityConnectionAuthor_avatar | SpecialityConnectionArticle | SpecialityConnectionSpeciality | SpecialityConnectionMaterial | SpecialityConnectionPublishedAt | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
 
 type Mutation {
+  createCourse(input: createCourseInput): createCoursePayload
+  updateCourse(input: updateCourseInput): updateCoursePayload
+  deleteCourse(input: deleteCourseInput): deleteCoursePayload
+  createMaterial(input: createMaterialInput): createMaterialPayload
+  updateMaterial(input: updateMaterialInput): updateMaterialPayload
+  deleteMaterial(input: deleteMaterialInput): deleteMaterialPayload
   createSpeciality(input: createSpecialityInput): createSpecialityPayload
   updateSpeciality(input: updateSpecialityInput): updateSpecialityPayload
   deleteSpeciality(input: deleteSpecialityInput): deleteSpecialityPayload
-  createTips(input: createTipsInput): createTipsPayload
-  updateTips(input: updateTipsInput): updateTipsPayload
-  deleteTips(input: deleteTipsInput): deleteTipsPayload
 
   """Create a new role"""
   createRole(input: createRoleInput): createRolePayload
@@ -113,12 +326,15 @@ type Mutation {
 }
 
 type Query {
+  course(id: ID!): Course
+  courses(sort: String, limit: Int, start: Int, where: JSON): [Course]
+  coursesConnection(sort: String, limit: Int, start: Int, where: JSON): CourseConnection
+  material(id: ID!): Material
+  materials(sort: String, limit: Int, start: Int, where: JSON): [Material]
+  materialsConnection(sort: String, limit: Int, start: Int, where: JSON): MaterialConnection
   speciality(id: ID!): Speciality
   specialities(sort: String, limit: Int, start: Int, where: JSON): [Speciality]
   specialitiesConnection(sort: String, limit: Int, start: Int, where: JSON): SpecialityConnection
-  tip(id: ID!): Tips
-  tips(sort: String, limit: Int, start: Int, where: JSON): [Tips]
-  tipsConnection(sort: String, limit: Int, start: Int, where: JSON): TipsConnection
   files(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
   filesConnection(sort: String, limit: Int, start: Int, where: JSON): UploadFileConnection
   role(id: ID!): UsersPermissionsRole
@@ -238,101 +454,22 @@ input SpecialityInput {
   publishedAt: DateTime!
 }
 
-"""Dicas com materiais baixáveis."""
-type Tips {
-  _id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  title: String!
-  publishedAt: DateTime!
-  material: UploadFile
-  description: String!
-  tips_image: UploadFile
-  pages: String!
-  author: String!
+input updateCourseInput {
+  where: InputID
+  data: CourseInput
 }
 
-type TipsAggregator {
-  count: Int
+type updateCoursePayload {
+  course: Course
 }
 
-type TipsConnection {
-  values: [Tips]
-  groupBy: TipsGroupBy
-  aggregate: TipsAggregator
+input updateMaterialInput {
+  where: InputID
+  data: MaterialInput
 }
 
-type TipsConnection_id {
-  key: ID
-  connection: TipsConnection
-}
-
-type TipsConnectionAuthor {
-  key: String
-  connection: TipsConnection
-}
-
-type TipsConnectionCreatedAt {
-  key: DateTime
-  connection: TipsConnection
-}
-
-type TipsConnectionDescription {
-  key: String
-  connection: TipsConnection
-}
-
-type TipsConnectionMaterial {
-  key: ID
-  connection: TipsConnection
-}
-
-type TipsConnectionPages {
-  key: String
-  connection: TipsConnection
-}
-
-type TipsConnectionPublishedAt {
-  key: DateTime
-  connection: TipsConnection
-}
-
-type TipsConnectionTips_image {
-  key: ID
-  connection: TipsConnection
-}
-
-type TipsConnectionTitle {
-  key: String
-  connection: TipsConnection
-}
-
-type TipsConnectionUpdatedAt {
-  key: DateTime
-  connection: TipsConnection
-}
-
-type TipsGroupBy {
-  _id: [TipsConnection_id]
-  createdAt: [TipsConnectionCreatedAt]
-  updatedAt: [TipsConnectionUpdatedAt]
-  title: [TipsConnectionTitle]
-  publishedAt: [TipsConnectionPublishedAt]
-  material: [TipsConnectionMaterial]
-  description: [TipsConnectionDescription]
-  tips_image: [TipsConnectionTips_image]
-  pages: [TipsConnectionPages]
-  author: [TipsConnectionAuthor]
-}
-
-input TipsInput {
-  title: String!
-  publishedAt: DateTime!
-  material: ID
-  description: String!
-  tips_image: ID
-  pages: String!
-  author: String!
+type updateMaterialPayload {
+  material: Material
 }
 
 input updateRoleInput {
@@ -351,15 +488,6 @@ input updateSpecialityInput {
 
 type updateSpecialityPayload {
   speciality: Speciality
-}
-
-input updateTipsInput {
-  where: InputID
-  data: TipsInput
-}
-
-type updateTipsPayload {
-  tip: Tips
 }
 
 input updateUserInput {

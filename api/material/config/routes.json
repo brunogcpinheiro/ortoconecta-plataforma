@@ -2,48 +2,48 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/tips",
-      "handler": "Tips.find",
+      "path": "/materials",
+      "handler": "Material.find",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/tips/count",
-      "handler": "Tips.count",
+      "path": "/materials/count",
+      "handler": "Material.count",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/tips/:_id",
-      "handler": "Tips.findOne",
+      "path": "/materials/:_id",
+      "handler": "Material.findOne",
       "config": {
         "policies": []
       }
     },
     {
       "method": "POST",
-      "path": "/tips",
-      "handler": "Tips.create",
+      "path": "/materials",
+      "handler": "Material.create",
       "config": {
         "policies": []
       }
     },
     {
       "method": "PUT",
-      "path": "/tips/:_id",
-      "handler": "Tips.update",
+      "path": "/materials/:_id",
+      "handler": "Material.update",
       "config": {
         "policies": []
       }
     },
     {
       "method": "DELETE",
-      "path": "/tips/:_id",
-      "handler": "Tips.destroy",
+      "path": "/materials/:_id",
+      "handler": "Material.destroy",
       "config": {
         "policies": []
       }

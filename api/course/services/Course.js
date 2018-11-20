@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Tips.js service
+ * Course.js service
  *
  * @description: A set of functions similar to controller's actions to avoid code duplication.
  */
@@ -12,21 +12,21 @@ const _ = require('lodash');
 module.exports = {
 
   /**
-   * Promise to fetch all tips.
+   * Promise to fetch all courses.
    *
    * @return {Promise}
    */
 
   fetchAll: (params) => {
     // Convert `params` object to filters compatible with Mongo.
-    const filters = strapi.utils.models.convertParams('tips', params);
+    const filters = strapi.utils.models.convertParams('course', params);
     // Select field to populate.
-    const populate = Tips.associations
+    const populate = Course.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias)
       .join(' ');
 
-    return Tips
+    return Course
       .find()
       .where(filters.where)
       .sort(filters.sort)
@@ -36,90 +36,90 @@ module.exports = {
   },
 
   /**
-   * Promise to fetch a/an tips.
+   * Promise to fetch a/an course.
    *
    * @return {Promise}
    */
 
   fetch: (params) => {
     // Select field to populate.
-    const populate = Tips.associations
+    const populate = Course.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias)
       .join(' ');
 
-    return Tips
-      .findOne(_.pick(params, _.keys(Tips.schema.paths)))
+    return Course
+      .findOne(_.pick(params, _.keys(Course.schema.paths)))
       .populate(populate);
   },
 
   /**
-   * Promise to count tips.
+   * Promise to count courses.
    *
    * @return {Promise}
    */
 
   count: (params) => {
     // Convert `params` object to filters compatible with Mongo.
-    const filters = strapi.utils.models.convertParams('tips', params);
+    const filters = strapi.utils.models.convertParams('course', params);
 
-    return Tips
+    return Course
       .count()
       .where(filters.where);
   },
 
   /**
-   * Promise to add a/an tips.
+   * Promise to add a/an course.
    *
    * @return {Promise}
    */
 
   add: async (values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Tips.associations.map(ast => ast.alias));
-    const data = _.omit(values, Tips.associations.map(ast => ast.alias));
+    const relations = _.pick(values, Course.associations.map(ast => ast.alias));
+    const data = _.omit(values, Course.associations.map(ast => ast.alias));
 
     // Create entry with no-relational data.
-    const entry = await Tips.create(data);
+    const entry = await Course.create(data);
 
     // Create relational data and return the entry.
-    return Tips.updateRelations({ _id: entry.id, values: relations });
+    return Course.updateRelations({ _id: entry.id, values: relations });
   },
 
   /**
-   * Promise to edit a/an tips.
+   * Promise to edit a/an course.
    *
    * @return {Promise}
    */
 
   edit: async (params, values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Tips.associations.map(a => a.alias));
-    const data = _.omit(values, Tips.associations.map(a => a.alias));
+    const relations = _.pick(values, Course.associations.map(a => a.alias));
+    const data = _.omit(values, Course.associations.map(a => a.alias));
 
     // Update entry with no-relational data.
-    const entry = await Tips.update(params, data, { multi: true });
+    const entry = await Course.update(params, data, { multi: true });
 
     // Update relational data and return the entry.
-    return Tips.updateRelations(Object.assign(params, { values: relations }));
+    return Course.updateRelations(Object.assign(params, { values: relations }));
   },
 
   /**
-   * Promise to remove a/an tips.
+   * Promise to remove a/an course.
    *
    * @return {Promise}
    */
 
   remove: async params => {
     // Select field to populate.
-    const populate = Tips.associations
+    const populate = Course.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias)
       .join(' ');
 
     // Note: To get the full response of Mongo, use the `remove()` method
     // or add spent the parameter `{ passRawResult: true }` as second argument.
-    const data = await Tips
+    const data = await Course
       .findOneAndRemove(params, {})
       .populate(populate);
 
@@ -128,7 +128,7 @@ module.exports = {
     }
 
     await Promise.all(
-      Tips.associations.map(async association => {
+      Course.associations.map(async association => {
         if (!association.via || !data._id) {
           return true;
         }
@@ -149,22 +149,22 @@ module.exports = {
   },
 
   /**
-   * Promise to search a/an tips.
+   * Promise to search a/an course.
    *
    * @return {Promise}
    */
 
   search: async (params) => {
     // Convert `params` object to filters compatible with Mongo.
-    const filters = strapi.utils.models.convertParams('tips', params);
+    const filters = strapi.utils.models.convertParams('course', params);
     // Select field to populate.
-    const populate = Tips.associations
+    const populate = Course.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias)
       .join(' ');
 
-    const $or = Object.keys(Tips.attributes).reduce((acc, curr) => {
-      switch (Tips.attributes[curr].type) {
+    const $or = Object.keys(Course.attributes).reduce((acc, curr) => {
+      switch (Course.attributes[curr].type) {
         case 'integer':
         case 'float':
         case 'decimal':
@@ -188,7 +188,7 @@ module.exports = {
       }
     }, []);
 
-    return Tips
+    return Course
       .find({ $or })
       .sort(filters.sort)
       .skip(filters.start)

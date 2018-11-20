@@ -2,48 +2,48 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/specialities",
-      "handler": "Speciality.find",
+      "path": "/courses",
+      "handler": "Course.find",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/specialities/count",
-      "handler": "Speciality.count",
+      "path": "/courses/count",
+      "handler": "Course.count",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/specialities/:_id",
-      "handler": "Speciality.findOne",
+      "path": "/courses/:_id",
+      "handler": "Course.findOne",
       "config": {
         "policies": []
       }
     },
     {
       "method": "POST",
-      "path": "/specialities",
-      "handler": "Speciality.create",
+      "path": "/courses",
+      "handler": "Course.create",
       "config": {
         "policies": []
       }
     },
     {
       "method": "PUT",
-      "path": "/specialities/:_id",
-      "handler": "Speciality.update",
+      "path": "/courses/:_id",
+      "handler": "Course.update",
       "config": {
         "policies": []
       }
     },
     {
       "method": "DELETE",
-      "path": "/specialities/:_id",
-      "handler": "Speciality.destroy",
+      "path": "/courses/:_id",
+      "handler": "Course.destroy",
       "config": {
         "policies": []
       }

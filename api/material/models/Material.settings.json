@@ -1,0 +1,50 @@
+{
+  "connection": "default",
+  "collectionName": "material",
+  "info": {
+    "name": "material",
+    "description": "Materiais baixáveis."
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "default": "",
+      "type": "string",
+      "required": true
+    },
+    "publishedAt": {
+      "default": "",
+      "type": "date",
+      "required": true
+    },
+    "material": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": true
+    },
+    "description": {
+      "default": "",
+      "type": "text",
+      "required": true
+    },
+    "material_image": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": true
+    },
+    "pages": {
+      "default": "",
+      "type": "string",
+      "required": true
+    },
+    "author": {
+      "default": "",
+      "type": "string",
+      "required": true
+    }
+  }
+}

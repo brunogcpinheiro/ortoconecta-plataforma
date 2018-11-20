@@ -1,9 +1,9 @@
 {
   "connection": "default",
-  "collectionName": "tips",
+  "collectionName": "course",
   "info": {
-    "name": "tips",
-    "description": "Dicas com materiais baixáveis."
+    "name": "course",
+    "description": "Cursos e eventos Orto Conecta."
   },
   "options": {
     "timestamps": true
@@ -14,29 +14,28 @@
       "type": "string",
       "required": true
     },
-    "publishedAt": {
-      "default": "",
-      "type": "date",
-      "required": true
-    },
-    "material": {
+    "course_image": {
       "model": "file",
       "via": "related",
       "plugin": "upload",
       "required": true
     },
-    "description": {
+    "sold_out": {
+      "default": false,
+      "type": "boolean",
+      "required": true
+    },
+    "price": {
       "default": "",
-      "type": "text",
+      "type": "string",
       "required": true
     },
-    "tips_image": {
-      "model": "file",
-      "via": "related",
-      "plugin": "upload",
+    "local": {
+      "default": "",
+      "type": "string",
       "required": true
     },
-    "pages": {
+    "date_event": {
       "default": "",
       "type": "string",
       "required": true
