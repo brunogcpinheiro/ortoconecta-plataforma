@@ -1,3 +1,84 @@
+"""Comentários ligados às experiencias."""
+type Comment {
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  author: String!
+  date: DateTime
+  body: String!
+  experience: Experience
+  author_email: String!
+}
+
+type CommentAggregator {
+  count: Int
+}
+
+type CommentConnection {
+  values: [Comment]
+  groupBy: CommentGroupBy
+  aggregate: CommentAggregator
+}
+
+type CommentConnection_id {
+  key: ID
+  connection: CommentConnection
+}
+
+type CommentConnectionAuthor {
+  key: String
+  connection: CommentConnection
+}
+
+type CommentConnectionAuthor_email {
+  key: String
+  connection: CommentConnection
+}
+
+type CommentConnectionBody {
+  key: String
+  connection: CommentConnection
+}
+
+type CommentConnectionCreatedAt {
+  key: DateTime
+  connection: CommentConnection
+}
+
+type CommentConnectionDate {
+  key: DateTime
+  connection: CommentConnection
+}
+
+type CommentConnectionExperience {
+  key: ID
+  connection: CommentConnection
+}
+
+type CommentConnectionUpdatedAt {
+  key: DateTime
+  connection: CommentConnection
+}
+
+type CommentGroupBy {
+  _id: [CommentConnection_id]
+  createdAt: [CommentConnectionCreatedAt]
+  updatedAt: [CommentConnectionUpdatedAt]
+  author: [CommentConnectionAuthor]
+  date: [CommentConnectionDate]
+  body: [CommentConnectionBody]
+  experience: [CommentConnectionExperience]
+  author_email: [CommentConnectionAuthor_email]
+}
+
+input CommentInput {
+  author: String!
+  date: DateTime
+  body: String!
+  experience: ID
+  author_email: String!
+}
+
 """Cursos e eventos Orto Conecta."""
 type Course {
   _id: ID!
@@ -95,12 +176,28 @@ input CourseInput {
   author: String!
 }
 
+input createCommentInput {
+  data: CommentInput
+}
+
+type createCommentPayload {
+  comment: Comment
+}
+
 input createCourseInput {
   data: CourseInput
 }
 
 type createCoursePayload {
   course: Course
+}
+
+input createExperienceInput {
+  data: ExperienceInput
+}
+
+type createExperiencePayload {
+  experience: Experience
 }
 
 input createMaterialInput {
@@ -140,12 +237,28 @@ The `DateTime` scalar represents a date and time following the ISO 8601 standard
 """
 scalar DateTime
 
+input deleteCommentInput {
+  where: InputID
+}
+
+type deleteCommentPayload {
+  comment: Comment
+}
+
 input deleteCourseInput {
   where: InputID
 }
 
 type deleteCoursePayload {
   course: Course
+}
+
+input deleteExperienceInput {
+  where: InputID
+}
+
+type deleteExperiencePayload {
+  experience: Experience
 }
 
 input deleteMaterialInput {
@@ -178,6 +291,89 @@ input deleteUserInput {
 
 type deleteUserPayload {
   user: UsersPermissionsUser
+}
+
+"""Experiencias compartilhadas permitindo comentários e curtidas."""
+type Experience {
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  description: String!
+  thumbnail: UploadFile
+  published_at: DateTime!
+  video_url: String!
+  comments(sort: String, limit: Int, start: Int, where: JSON): [Comment]
+}
+
+type ExperienceAggregator {
+  count: Int
+}
+
+type ExperienceConnection {
+  values: [Experience]
+  groupBy: ExperienceGroupBy
+  aggregate: ExperienceAggregator
+}
+
+type ExperienceConnection_id {
+  key: ID
+  connection: ExperienceConnection
+}
+
+type ExperienceConnectionCreatedAt {
+  key: DateTime
+  connection: ExperienceConnection
+}
+
+type ExperienceConnectionDescription {
+  key: String
+  connection: ExperienceConnection
+}
+
+type ExperienceConnectionPublished_at {
+  key: DateTime
+  connection: ExperienceConnection
+}
+
+type ExperienceConnectionThumbnail {
+  key: ID
+  connection: ExperienceConnection
+}
+
+type ExperienceConnectionTitle {
+  key: String
+  connection: ExperienceConnection
+}
+
+type ExperienceConnectionUpdatedAt {
+  key: DateTime
+  connection: ExperienceConnection
+}
+
+type ExperienceConnectionVideo_url {
+  key: String
+  connection: ExperienceConnection
+}
+
+type ExperienceGroupBy {
+  _id: [ExperienceConnection_id]
+  createdAt: [ExperienceConnectionCreatedAt]
+  updatedAt: [ExperienceConnectionUpdatedAt]
+  title: [ExperienceConnectionTitle]
+  description: [ExperienceConnectionDescription]
+  thumbnail: [ExperienceConnectionThumbnail]
+  published_at: [ExperienceConnectionPublished_at]
+  video_url: [ExperienceConnectionVideo_url]
+}
+
+input ExperienceInput {
+  title: String!
+  description: String!
+  thumbnail: ID
+  published_at: DateTime!
+  comments: [ID]
+  video_url: String!
 }
 
 input FileInput {
@@ -298,12 +494,18 @@ input MaterialInput {
   author: String!
 }
 
-union Morph = Course | createCoursePayload | updateCoursePayload | deleteCoursePayload | CourseConnection | CourseAggregator | CourseGroupBy | CourseConnection_id | CourseConnectionCreatedAt | CourseConnectionUpdatedAt | CourseConnectionTitle | CourseConnectionCourse_image | CourseConnectionSold_out | CourseConnectionPrice | CourseConnectionLocal | CourseConnectionDate_event | CourseConnectionAuthor | Material | createMaterialPayload | updateMaterialPayload | deleteMaterialPayload | MaterialConnection | MaterialAggregator | MaterialGroupBy | MaterialConnection_id | MaterialConnectionCreatedAt | MaterialConnectionUpdatedAt | MaterialConnectionTitle | MaterialConnectionPublishedAt | MaterialConnectionMaterial | MaterialConnectionDescription | MaterialConnectionMaterial_image | MaterialConnectionPages | MaterialConnectionAuthor | Speciality | createSpecialityPayload | updateSpecialityPayload | deleteSpecialityPayload | SpecialityConnection | SpecialityAggregator | SpecialityGroupBy | SpecialityConnection_id | SpecialityConnectionCreatedAt | SpecialityConnectionUpdatedAt | SpecialityConnectionTitle | SpecialityConnectionAuthor | SpecialityConnectionAuthor_avatar | SpecialityConnectionArticle | SpecialityConnectionSpeciality | SpecialityConnectionMaterial | SpecialityConnectionPublishedAt | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
+union Morph = Comment | createCommentPayload | updateCommentPayload | deleteCommentPayload | CommentConnection | CommentAggregator | CommentGroupBy | CommentConnection_id | CommentConnectionCreatedAt | CommentConnectionUpdatedAt | CommentConnectionAuthor | CommentConnectionDate | CommentConnectionBody | CommentConnectionExperience | CommentConnectionAuthor_email | Course | createCoursePayload | updateCoursePayload | deleteCoursePayload | CourseConnection | CourseAggregator | CourseGroupBy | CourseConnection_id | CourseConnectionCreatedAt | CourseConnectionUpdatedAt | CourseConnectionTitle | CourseConnectionCourse_image | CourseConnectionSold_out | CourseConnectionPrice | CourseConnectionLocal | CourseConnectionDate_event | CourseConnectionAuthor | Experience | createExperiencePayload | updateExperiencePayload | deleteExperiencePayload | ExperienceConnection | ExperienceAggregator | ExperienceGroupBy | ExperienceConnection_id | ExperienceConnectionCreatedAt | ExperienceConnectionUpdatedAt | ExperienceConnectionTitle | ExperienceConnectionDescription | ExperienceConnectionThumbnail | ExperienceConnectionPublished_at | ExperienceConnectionVideo_url | Material | createMaterialPayload | updateMaterialPayload | deleteMaterialPayload | MaterialConnection | MaterialAggregator | MaterialGroupBy | MaterialConnection_id | MaterialConnectionCreatedAt | MaterialConnectionUpdatedAt | MaterialConnectionTitle | MaterialConnectionPublishedAt | MaterialConnectionMaterial | MaterialConnectionDescription | MaterialConnectionMaterial_image | MaterialConnectionPages | MaterialConnectionAuthor | Speciality | createSpecialityPayload | updateSpecialityPayload | deleteSpecialityPayload | SpecialityConnection | SpecialityAggregator | SpecialityGroupBy | SpecialityConnection_id | SpecialityConnectionCreatedAt | SpecialityConnectionUpdatedAt | SpecialityConnectionTitle | SpecialityConnectionAuthor | SpecialityConnectionAuthor_avatar | SpecialityConnectionArticle | SpecialityConnectionSpeciality | SpecialityConnectionMaterial | SpecialityConnectionPublishedAt | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
 
 type Mutation {
+  createComment(input: createCommentInput): createCommentPayload
+  updateComment(input: updateCommentInput): updateCommentPayload
+  deleteComment(input: deleteCommentInput): deleteCommentPayload
   createCourse(input: createCourseInput): createCoursePayload
   updateCourse(input: updateCourseInput): updateCoursePayload
   deleteCourse(input: deleteCourseInput): deleteCoursePayload
+  createExperience(input: createExperienceInput): createExperiencePayload
+  updateExperience(input: updateExperienceInput): updateExperiencePayload
+  deleteExperience(input: deleteExperienceInput): deleteExperiencePayload
   createMaterial(input: createMaterialInput): createMaterialPayload
   updateMaterial(input: updateMaterialInput): updateMaterialPayload
   deleteMaterial(input: deleteMaterialInput): deleteMaterialPayload
@@ -326,9 +528,15 @@ type Mutation {
 }
 
 type Query {
+  comment(id: ID!): Comment
+  comments(sort: String, limit: Int, start: Int, where: JSON): [Comment]
+  commentsConnection(sort: String, limit: Int, start: Int, where: JSON): CommentConnection
   course(id: ID!): Course
   courses(sort: String, limit: Int, start: Int, where: JSON): [Course]
   coursesConnection(sort: String, limit: Int, start: Int, where: JSON): CourseConnection
+  experience(id: ID!): Experience
+  experiences(sort: String, limit: Int, start: Int, where: JSON): [Experience]
+  experiencesConnection(sort: String, limit: Int, start: Int, where: JSON): ExperienceConnection
   material(id: ID!): Material
   materials(sort: String, limit: Int, start: Int, where: JSON): [Material]
   materialsConnection(sort: String, limit: Int, start: Int, where: JSON): MaterialConnection
@@ -454,6 +662,15 @@ input SpecialityInput {
   publishedAt: DateTime!
 }
 
+input updateCommentInput {
+  where: InputID
+  data: CommentInput
+}
+
+type updateCommentPayload {
+  comment: Comment
+}
+
 input updateCourseInput {
   where: InputID
   data: CourseInput
@@ -461,6 +678,15 @@ input updateCourseInput {
 
 type updateCoursePayload {
   course: Course
+}
+
+input updateExperienceInput {
+  where: InputID
+  data: ExperienceInput
+}
+
+type updateExperiencePayload {
+  experience: Experience
 }
 
 input updateMaterialInput {

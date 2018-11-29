@@ -1,0 +1,43 @@
+{
+  "connection": "default",
+  "collectionName": "experience",
+  "info": {
+    "name": "experience",
+    "description": "Experiencias compartilhadas permitindo comentários e curtidas."
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "default": "",
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "default": "",
+      "type": "text",
+      "required": true
+    },
+    "thumbnail": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": true
+    },
+    "published_at": {
+      "default": "",
+      "type": "date",
+      "required": true
+    },
+    "comments": {
+      "collection": "comment",
+      "via": "experience"
+    },
+    "video_url": {
+      "default": "",
+      "type": "string",
+      "required": true
+    }
+  }
+}
