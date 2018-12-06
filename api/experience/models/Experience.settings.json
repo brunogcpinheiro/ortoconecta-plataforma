@@ -38,6 +38,11 @@
       "default": "",
       "type": "string",
       "required": true
+    },
+    "likes": {
+      "default": "",
+      "type": "integer",
+      "required": true
     }
   }
 }

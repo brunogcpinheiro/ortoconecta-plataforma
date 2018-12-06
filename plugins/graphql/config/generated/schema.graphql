@@ -6,8 +6,8 @@ type Comment {
   author: String!
   date: DateTime
   body: String!
-  experience: Experience
   author_email: String!
+  experience: Experience
 }
 
 type CommentAggregator {
@@ -67,16 +67,16 @@ type CommentGroupBy {
   author: [CommentConnectionAuthor]
   date: [CommentConnectionDate]
   body: [CommentConnectionBody]
-  experience: [CommentConnectionExperience]
   author_email: [CommentConnectionAuthor_email]
+  experience: [CommentConnectionExperience]
 }
 
 input CommentInput {
   author: String!
   date: DateTime
   body: String!
-  experience: ID
   author_email: String!
+  experience: ID
 }
 
 """Cursos e eventos Orto Conecta."""
@@ -303,6 +303,7 @@ type Experience {
   thumbnail: UploadFile
   published_at: DateTime!
   video_url: String!
+  likes: Int!
   comments(sort: String, limit: Int, start: Int, where: JSON): [Comment]
 }
 
@@ -328,6 +329,11 @@ type ExperienceConnectionCreatedAt {
 
 type ExperienceConnectionDescription {
   key: String
+  connection: ExperienceConnection
+}
+
+type ExperienceConnectionLikes {
+  key: Int
   connection: ExperienceConnection
 }
 
@@ -365,6 +371,7 @@ type ExperienceGroupBy {
   thumbnail: [ExperienceConnectionThumbnail]
   published_at: [ExperienceConnectionPublished_at]
   video_url: [ExperienceConnectionVideo_url]
+  likes: [ExperienceConnectionLikes]
 }
 
 input ExperienceInput {
@@ -374,6 +381,7 @@ input ExperienceInput {
   published_at: DateTime!
   comments: [ID]
   video_url: String!
+  likes: Int!
 }
 
 input FileInput {
@@ -494,7 +502,7 @@ input MaterialInput {
   author: String!
 }
 
-union Morph = Comment | createCommentPayload | updateCommentPayload | deleteCommentPayload | CommentConnection | CommentAggregator | CommentGroupBy | CommentConnection_id | CommentConnectionCreatedAt | CommentConnectionUpdatedAt | CommentConnectionAuthor | CommentConnectionDate | CommentConnectionBody | CommentConnectionExperience | CommentConnectionAuthor_email | Course | createCoursePayload | updateCoursePayload | deleteCoursePayload | CourseConnection | CourseAggregator | CourseGroupBy | CourseConnection_id | CourseConnectionCreatedAt | CourseConnectionUpdatedAt | CourseConnectionTitle | CourseConnectionCourse_image | CourseConnectionSold_out | CourseConnectionPrice | CourseConnectionLocal | CourseConnectionDate_event | CourseConnectionAuthor | Experience | createExperiencePayload | updateExperiencePayload | deleteExperiencePayload | ExperienceConnection | ExperienceAggregator | ExperienceGroupBy | ExperienceConnection_id | ExperienceConnectionCreatedAt | ExperienceConnectionUpdatedAt | ExperienceConnectionTitle | ExperienceConnectionDescription | ExperienceConnectionThumbnail | ExperienceConnectionPublished_at | ExperienceConnectionVideo_url | Material | createMaterialPayload | updateMaterialPayload | deleteMaterialPayload | MaterialConnection | MaterialAggregator | MaterialGroupBy | MaterialConnection_id | MaterialConnectionCreatedAt | MaterialConnectionUpdatedAt | MaterialConnectionTitle | MaterialConnectionPublishedAt | MaterialConnectionMaterial | MaterialConnectionDescription | MaterialConnectionMaterial_image | MaterialConnectionPages | MaterialConnectionAuthor | Speciality | createSpecialityPayload | updateSpecialityPayload | deleteSpecialityPayload | SpecialityConnection | SpecialityAggregator | SpecialityGroupBy | SpecialityConnection_id | SpecialityConnectionCreatedAt | SpecialityConnectionUpdatedAt | SpecialityConnectionTitle | SpecialityConnectionAuthor | SpecialityConnectionAuthor_avatar | SpecialityConnectionArticle | SpecialityConnectionSpeciality | SpecialityConnectionMaterial | SpecialityConnectionPublishedAt | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
+union Morph = Comment | createCommentPayload | updateCommentPayload | deleteCommentPayload | CommentConnection | CommentAggregator | CommentGroupBy | CommentConnection_id | CommentConnectionCreatedAt | CommentConnectionUpdatedAt | CommentConnectionAuthor | CommentConnectionDate | CommentConnectionBody | CommentConnectionAuthor_email | CommentConnectionExperience | Course | createCoursePayload | updateCoursePayload | deleteCoursePayload | CourseConnection | CourseAggregator | CourseGroupBy | CourseConnection_id | CourseConnectionCreatedAt | CourseConnectionUpdatedAt | CourseConnectionTitle | CourseConnectionCourse_image | CourseConnectionSold_out | CourseConnectionPrice | CourseConnectionLocal | CourseConnectionDate_event | CourseConnectionAuthor | Experience | createExperiencePayload | updateExperiencePayload | deleteExperiencePayload | ExperienceConnection | ExperienceAggregator | ExperienceGroupBy | ExperienceConnection_id | ExperienceConnectionCreatedAt | ExperienceConnectionUpdatedAt | ExperienceConnectionTitle | ExperienceConnectionDescription | ExperienceConnectionThumbnail | ExperienceConnectionPublished_at | ExperienceConnectionVideo_url | ExperienceConnectionLikes | Material | createMaterialPayload | updateMaterialPayload | deleteMaterialPayload | MaterialConnection | MaterialAggregator | MaterialGroupBy | MaterialConnection_id | MaterialConnectionCreatedAt | MaterialConnectionUpdatedAt | MaterialConnectionTitle | MaterialConnectionPublishedAt | MaterialConnectionMaterial | MaterialConnectionDescription | MaterialConnectionMaterial_image | MaterialConnectionPages | MaterialConnectionAuthor | Speciality | createSpecialityPayload | updateSpecialityPayload | deleteSpecialityPayload | SpecialityConnection | SpecialityAggregator | SpecialityGroupBy | SpecialityConnection_id | SpecialityConnectionCreatedAt | SpecialityConnectionUpdatedAt | SpecialityConnectionTitle | SpecialityConnectionAuthor | SpecialityConnectionAuthor_avatar | SpecialityConnectionArticle | SpecialityConnectionSpeciality | SpecialityConnectionMaterial | SpecialityConnectionPublishedAt | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
 
 type Mutation {
   createComment(input: createCommentInput): createCommentPayload

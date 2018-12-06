@@ -23,14 +23,14 @@
       "type": "text",
       "required": true
     },
-    "experience": {
-      "model": "experience",
-      "via": "comments"
-    },
     "author_email": {
       "default": "",
       "type": "email",
       "required": true
+    },
+    "experience": {
+      "model": "experience",
+      "via": "comments"
     }
   }
 }
