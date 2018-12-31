@@ -1,0 +1,27 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "tip",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "video_url": {
+      "default": "",
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "default": "",
+      "type": "string",
+      "required": true
+    },
+    "tipsComments": {
+      "collection": "tipscomment",
+      "via": "tip"
+    }
+  }
+}

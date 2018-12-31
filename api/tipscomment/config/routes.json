@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/tipscomments",
+      "handler": "Tipscomment.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tipscomments/count",
+      "handler": "Tipscomment.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tipscomments/:_id",
+      "handler": "Tipscomment.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/tipscomments",
+      "handler": "Tipscomment.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/tipscomments/:_id",
+      "handler": "Tipscomment.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/tipscomments/:_id",
+      "handler": "Tipscomment.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

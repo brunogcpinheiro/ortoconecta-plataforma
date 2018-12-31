@@ -1,0 +1,54 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "actual",
+    "description": "E se fosse hoje? Casos clínicos na visão atual."
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "case_title": {
+      "default": "",
+      "type": "string",
+      "required": true
+    },
+    "patient_name": {
+      "default": "",
+      "type": "string",
+      "required": true
+    },
+    "patient_age": {
+      "default": "",
+      "type": "string",
+      "required": true
+    },
+    "main_complaint": {
+      "default": "",
+      "type": "string",
+      "required": true
+    },
+    "patient_genre": {
+      "default": "",
+      "type": "string",
+      "required": true
+    },
+    "skin_type": {
+      "default": "",
+      "type": "string",
+      "required": true
+    },
+    "keywords": {
+      "default": "",
+      "type": "text",
+      "required": true
+    },
+    "material": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": true
+    }
+  }
+}

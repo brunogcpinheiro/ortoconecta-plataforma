@@ -1,3 +1,108 @@
+"""E se fosse hoje? Casos clínicos na visão atual."""
+type Actual {
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  case_title: String!
+  patient_name: String!
+  patient_age: String!
+  main_complaint: String!
+  patient_genre: String!
+  skin_type: String!
+  keywords: String!
+  material: UploadFile
+}
+
+type ActualAggregator {
+  count: Int
+}
+
+type ActualConnection {
+  values: [Actual]
+  groupBy: ActualGroupBy
+  aggregate: ActualAggregator
+}
+
+type ActualConnection_id {
+  key: ID
+  connection: ActualConnection
+}
+
+type ActualConnectionCase_title {
+  key: String
+  connection: ActualConnection
+}
+
+type ActualConnectionCreatedAt {
+  key: DateTime
+  connection: ActualConnection
+}
+
+type ActualConnectionKeywords {
+  key: String
+  connection: ActualConnection
+}
+
+type ActualConnectionMain_complaint {
+  key: String
+  connection: ActualConnection
+}
+
+type ActualConnectionMaterial {
+  key: ID
+  connection: ActualConnection
+}
+
+type ActualConnectionPatient_age {
+  key: String
+  connection: ActualConnection
+}
+
+type ActualConnectionPatient_genre {
+  key: String
+  connection: ActualConnection
+}
+
+type ActualConnectionPatient_name {
+  key: String
+  connection: ActualConnection
+}
+
+type ActualConnectionSkin_type {
+  key: String
+  connection: ActualConnection
+}
+
+type ActualConnectionUpdatedAt {
+  key: DateTime
+  connection: ActualConnection
+}
+
+type ActualGroupBy {
+  _id: [ActualConnection_id]
+  createdAt: [ActualConnectionCreatedAt]
+  updatedAt: [ActualConnectionUpdatedAt]
+  case_title: [ActualConnectionCase_title]
+  patient_name: [ActualConnectionPatient_name]
+  patient_age: [ActualConnectionPatient_age]
+  main_complaint: [ActualConnectionMain_complaint]
+  patient_genre: [ActualConnectionPatient_genre]
+  skin_type: [ActualConnectionSkin_type]
+  keywords: [ActualConnectionKeywords]
+  material: [ActualConnectionMaterial]
+}
+
+input ActualInput {
+  case_title: String!
+  patient_name: String!
+  patient_age: String!
+  main_complaint: String!
+  patient_genre: String!
+  skin_type: String!
+  keywords: String!
+  material: ID
+}
+
 """Comentários ligados às experiencias."""
 type Comment {
   _id: ID!
@@ -176,6 +281,14 @@ input CourseInput {
   author: String!
 }
 
+input createActualInput {
+  data: ActualInput
+}
+
+type createActualPayload {
+  actual: Actual
+}
+
 input createCommentInput {
   data: CommentInput
 }
@@ -208,6 +321,14 @@ type createMaterialPayload {
   material: Material
 }
 
+input createProfessionalInput {
+  data: ProfessionalInput
+}
+
+type createProfessionalPayload {
+  professional: Professional
+}
+
 input createRoleInput {
   data: RoleInput
 }
@@ -216,12 +337,44 @@ type createRolePayload {
   role: UsersPermissionsRole
 }
 
+input createSolutionInput {
+  data: SolutionInput
+}
+
+type createSolutionPayload {
+  solution: Solution
+}
+
 input createSpecialityInput {
   data: SpecialityInput
 }
 
 type createSpecialityPayload {
   speciality: Speciality
+}
+
+input createSubscriberInput {
+  data: SubscriberInput
+}
+
+type createSubscriberPayload {
+  subscriber: Subscriber
+}
+
+input createTipInput {
+  data: TipInput
+}
+
+type createTipPayload {
+  tip: Tip
+}
+
+input createTipscommentInput {
+  data: TipscommentInput
+}
+
+type createTipscommentPayload {
+  tipscomment: Tipscomment
 }
 
 input createUserInput {
@@ -236,6 +389,14 @@ type createUserPayload {
 The `DateTime` scalar represents a date and time following the ISO 8601 standard
 """
 scalar DateTime
+
+input deleteActualInput {
+  where: InputID
+}
+
+type deleteActualPayload {
+  actual: Actual
+}
 
 input deleteCommentInput {
   where: InputID
@@ -269,6 +430,14 @@ type deleteMaterialPayload {
   material: Material
 }
 
+input deleteProfessionalInput {
+  where: InputID
+}
+
+type deleteProfessionalPayload {
+  professional: Professional
+}
+
 input deleteRoleInput {
   where: InputID
 }
@@ -277,12 +446,44 @@ type deleteRolePayload {
   role: UsersPermissionsRole
 }
 
+input deleteSolutionInput {
+  where: InputID
+}
+
+type deleteSolutionPayload {
+  solution: Solution
+}
+
 input deleteSpecialityInput {
   where: InputID
 }
 
 type deleteSpecialityPayload {
   speciality: Speciality
+}
+
+input deleteSubscriberInput {
+  where: InputID
+}
+
+type deleteSubscriberPayload {
+  subscriber: Subscriber
+}
+
+input deleteTipInput {
+  where: InputID
+}
+
+type deleteTipPayload {
+  tip: Tip
+}
+
+input deleteTipscommentInput {
+  where: InputID
+}
+
+type deleteTipscommentPayload {
+  tipscomment: Tipscomment
 }
 
 input deleteUserInput {
@@ -502,9 +703,12 @@ input MaterialInput {
   author: String!
 }
 
-union Morph = Comment | createCommentPayload | updateCommentPayload | deleteCommentPayload | CommentConnection | CommentAggregator | CommentGroupBy | CommentConnection_id | CommentConnectionCreatedAt | CommentConnectionUpdatedAt | CommentConnectionAuthor | CommentConnectionDate | CommentConnectionBody | CommentConnectionAuthor_email | CommentConnectionExperience | Course | createCoursePayload | updateCoursePayload | deleteCoursePayload | CourseConnection | CourseAggregator | CourseGroupBy | CourseConnection_id | CourseConnectionCreatedAt | CourseConnectionUpdatedAt | CourseConnectionTitle | CourseConnectionCourse_image | CourseConnectionSold_out | CourseConnectionPrice | CourseConnectionLocal | CourseConnectionDate_event | CourseConnectionAuthor | Experience | createExperiencePayload | updateExperiencePayload | deleteExperiencePayload | ExperienceConnection | ExperienceAggregator | ExperienceGroupBy | ExperienceConnection_id | ExperienceConnectionCreatedAt | ExperienceConnectionUpdatedAt | ExperienceConnectionTitle | ExperienceConnectionDescription | ExperienceConnectionThumbnail | ExperienceConnectionPublished_at | ExperienceConnectionVideo_url | ExperienceConnectionLikes | Material | createMaterialPayload | updateMaterialPayload | deleteMaterialPayload | MaterialConnection | MaterialAggregator | MaterialGroupBy | MaterialConnection_id | MaterialConnectionCreatedAt | MaterialConnectionUpdatedAt | MaterialConnectionTitle | MaterialConnectionPublishedAt | MaterialConnectionMaterial | MaterialConnectionDescription | MaterialConnectionMaterial_image | MaterialConnectionPages | MaterialConnectionAuthor | Speciality | createSpecialityPayload | updateSpecialityPayload | deleteSpecialityPayload | SpecialityConnection | SpecialityAggregator | SpecialityGroupBy | SpecialityConnection_id | SpecialityConnectionCreatedAt | SpecialityConnectionUpdatedAt | SpecialityConnectionTitle | SpecialityConnectionAuthor | SpecialityConnectionAuthor_avatar | SpecialityConnectionArticle | SpecialityConnectionSpeciality | SpecialityConnectionMaterial | SpecialityConnectionPublishedAt | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
+union Morph = Actual | createActualPayload | updateActualPayload | deleteActualPayload | ActualConnection | ActualAggregator | ActualGroupBy | ActualConnection_id | ActualConnectionCreatedAt | ActualConnectionUpdatedAt | ActualConnectionCase_title | ActualConnectionPatient_name | ActualConnectionPatient_age | ActualConnectionMain_complaint | ActualConnectionPatient_genre | ActualConnectionSkin_type | ActualConnectionKeywords | ActualConnectionMaterial | Comment | createCommentPayload | updateCommentPayload | deleteCommentPayload | CommentConnection | CommentAggregator | CommentGroupBy | CommentConnection_id | CommentConnectionCreatedAt | CommentConnectionUpdatedAt | CommentConnectionAuthor | CommentConnectionDate | CommentConnectionBody | CommentConnectionAuthor_email | CommentConnectionExperience | Course | createCoursePayload | updateCoursePayload | deleteCoursePayload | CourseConnection | CourseAggregator | CourseGroupBy | CourseConnection_id | CourseConnectionCreatedAt | CourseConnectionUpdatedAt | CourseConnectionTitle | CourseConnectionCourse_image | CourseConnectionSold_out | CourseConnectionPrice | CourseConnectionLocal | CourseConnectionDate_event | CourseConnectionAuthor | Experience | createExperiencePayload | updateExperiencePayload | deleteExperiencePayload | ExperienceConnection | ExperienceAggregator | ExperienceGroupBy | ExperienceConnection_id | ExperienceConnectionCreatedAt | ExperienceConnectionUpdatedAt | ExperienceConnectionTitle | ExperienceConnectionDescription | ExperienceConnectionThumbnail | ExperienceConnectionPublished_at | ExperienceConnectionVideo_url | ExperienceConnectionLikes | Material | createMaterialPayload | updateMaterialPayload | deleteMaterialPayload | MaterialConnection | MaterialAggregator | MaterialGroupBy | MaterialConnection_id | MaterialConnectionCreatedAt | MaterialConnectionUpdatedAt | MaterialConnectionTitle | MaterialConnectionPublishedAt | MaterialConnectionMaterial | MaterialConnectionDescription | MaterialConnectionMaterial_image | MaterialConnectionPages | MaterialConnectionAuthor | Professional | createProfessionalPayload | updateProfessionalPayload | deleteProfessionalPayload | ProfessionalConnection | ProfessionalAggregator | ProfessionalGroupBy | ProfessionalConnection_id | ProfessionalConnectionCreatedAt | ProfessionalConnectionUpdatedAt | ProfessionalConnectionName | ProfessionalConnectionSpeciality | ProfessionalConnectionImage | ProfessionalConnectionEmail | ProfessionalConnectionTelephone | ProfessionalConnectionClinical | Solution | createSolutionPayload | updateSolutionPayload | deleteSolutionPayload | SolutionConnection | SolutionAggregator | SolutionGroupBy | SolutionConnection_id | SolutionConnectionCreatedAt | SolutionConnectionUpdatedAt | SolutionConnectionCase_title | SolutionConnectionPatient_name | SolutionConnectionPatient_age | SolutionConnectionMain_complaint | SolutionConnectionPatient_genre | SolutionConnectionSkin_type | SolutionConnectionKeywords | SolutionConnectionMaterial | Speciality | createSpecialityPayload | updateSpecialityPayload | deleteSpecialityPayload | SpecialityConnection | SpecialityAggregator | SpecialityGroupBy | SpecialityConnection_id | SpecialityConnectionCreatedAt | SpecialityConnectionUpdatedAt | SpecialityConnectionTitle | SpecialityConnectionAuthor | SpecialityConnectionAuthor_avatar | SpecialityConnectionArticle | SpecialityConnectionSpeciality | SpecialityConnectionMaterial | SpecialityConnectionPublishedAt | Subscriber | createSubscriberPayload | updateSubscriberPayload | deleteSubscriberPayload | SubscriberConnection | SubscriberAggregator | SubscriberGroupBy | SubscriberConnection_id | SubscriberConnectionCreatedAt | SubscriberConnectionUpdatedAt | SubscriberConnectionEmail | Tip | createTipPayload | updateTipPayload | deleteTipPayload | TipConnection | TipAggregator | TipGroupBy | TipConnection_id | TipConnectionCreatedAt | TipConnectionUpdatedAt | TipConnectionVideo_url | TipConnectionTitle | Tipscomment | createTipscommentPayload | updateTipscommentPayload | deleteTipscommentPayload | TipscommentConnection | TipscommentAggregator | TipscommentGroupBy | TipscommentConnection_id | TipscommentConnectionCreatedAt | TipscommentConnectionUpdatedAt | TipscommentConnectionAuthor_email | TipscommentConnectionAuthor | TipscommentConnectionDate | TipscommentConnectionTip | TipscommentConnectionBody | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
 
 type Mutation {
+  createActual(input: createActualInput): createActualPayload
+  updateActual(input: updateActualInput): updateActualPayload
+  deleteActual(input: deleteActualInput): deleteActualPayload
   createComment(input: createCommentInput): createCommentPayload
   updateComment(input: updateCommentInput): updateCommentPayload
   deleteComment(input: deleteCommentInput): deleteCommentPayload
@@ -517,9 +721,24 @@ type Mutation {
   createMaterial(input: createMaterialInput): createMaterialPayload
   updateMaterial(input: updateMaterialInput): updateMaterialPayload
   deleteMaterial(input: deleteMaterialInput): deleteMaterialPayload
+  createProfessional(input: createProfessionalInput): createProfessionalPayload
+  updateProfessional(input: updateProfessionalInput): updateProfessionalPayload
+  deleteProfessional(input: deleteProfessionalInput): deleteProfessionalPayload
+  createSolution(input: createSolutionInput): createSolutionPayload
+  updateSolution(input: updateSolutionInput): updateSolutionPayload
+  deleteSolution(input: deleteSolutionInput): deleteSolutionPayload
   createSpeciality(input: createSpecialityInput): createSpecialityPayload
   updateSpeciality(input: updateSpecialityInput): updateSpecialityPayload
   deleteSpeciality(input: deleteSpecialityInput): deleteSpecialityPayload
+  createSubscriber(input: createSubscriberInput): createSubscriberPayload
+  updateSubscriber(input: updateSubscriberInput): updateSubscriberPayload
+  deleteSubscriber(input: deleteSubscriberInput): deleteSubscriberPayload
+  createTip(input: createTipInput): createTipPayload
+  updateTip(input: updateTipInput): updateTipPayload
+  deleteTip(input: deleteTipInput): deleteTipPayload
+  createTipscomment(input: createTipscommentInput): createTipscommentPayload
+  updateTipscomment(input: updateTipscommentInput): updateTipscommentPayload
+  deleteTipscomment(input: deleteTipscommentInput): deleteTipscommentPayload
 
   """Create a new role"""
   createRole(input: createRoleInput): createRolePayload
@@ -535,7 +754,99 @@ type Mutation {
   upload(refId: ID, ref: String, source: String, file: Upload!): UploadFile!
 }
 
+"""Profissionais da aba Portfolio"""
+type Professional {
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  speciality: String!
+  image: UploadFile
+  email: String!
+  telephone: String!
+  clinical: String
+}
+
+type ProfessionalAggregator {
+  count: Int
+}
+
+type ProfessionalConnection {
+  values: [Professional]
+  groupBy: ProfessionalGroupBy
+  aggregate: ProfessionalAggregator
+}
+
+type ProfessionalConnection_id {
+  key: ID
+  connection: ProfessionalConnection
+}
+
+type ProfessionalConnectionClinical {
+  key: String
+  connection: ProfessionalConnection
+}
+
+type ProfessionalConnectionCreatedAt {
+  key: DateTime
+  connection: ProfessionalConnection
+}
+
+type ProfessionalConnectionEmail {
+  key: String
+  connection: ProfessionalConnection
+}
+
+type ProfessionalConnectionImage {
+  key: ID
+  connection: ProfessionalConnection
+}
+
+type ProfessionalConnectionName {
+  key: String
+  connection: ProfessionalConnection
+}
+
+type ProfessionalConnectionSpeciality {
+  key: String
+  connection: ProfessionalConnection
+}
+
+type ProfessionalConnectionTelephone {
+  key: String
+  connection: ProfessionalConnection
+}
+
+type ProfessionalConnectionUpdatedAt {
+  key: DateTime
+  connection: ProfessionalConnection
+}
+
+type ProfessionalGroupBy {
+  _id: [ProfessionalConnection_id]
+  createdAt: [ProfessionalConnectionCreatedAt]
+  updatedAt: [ProfessionalConnectionUpdatedAt]
+  name: [ProfessionalConnectionName]
+  speciality: [ProfessionalConnectionSpeciality]
+  image: [ProfessionalConnectionImage]
+  email: [ProfessionalConnectionEmail]
+  telephone: [ProfessionalConnectionTelephone]
+  clinical: [ProfessionalConnectionClinical]
+}
+
+input ProfessionalInput {
+  name: String!
+  speciality: String!
+  image: ID
+  email: String!
+  telephone: String!
+  clinical: String
+}
+
 type Query {
+  actual(id: ID!): Actual
+  actuals(sort: String, limit: Int, start: Int, where: JSON): [Actual]
+  actualsConnection(sort: String, limit: Int, start: Int, where: JSON): ActualConnection
   comment(id: ID!): Comment
   comments(sort: String, limit: Int, start: Int, where: JSON): [Comment]
   commentsConnection(sort: String, limit: Int, start: Int, where: JSON): CommentConnection
@@ -548,9 +859,24 @@ type Query {
   material(id: ID!): Material
   materials(sort: String, limit: Int, start: Int, where: JSON): [Material]
   materialsConnection(sort: String, limit: Int, start: Int, where: JSON): MaterialConnection
+  professional(id: ID!): Professional
+  professionals(sort: String, limit: Int, start: Int, where: JSON): [Professional]
+  professionalsConnection(sort: String, limit: Int, start: Int, where: JSON): ProfessionalConnection
+  solution(id: ID!): Solution
+  solutions(sort: String, limit: Int, start: Int, where: JSON): [Solution]
+  solutionsConnection(sort: String, limit: Int, start: Int, where: JSON): SolutionConnection
   speciality(id: ID!): Speciality
   specialities(sort: String, limit: Int, start: Int, where: JSON): [Speciality]
   specialitiesConnection(sort: String, limit: Int, start: Int, where: JSON): SpecialityConnection
+  subscriber(id: ID!): Subscriber
+  subscribers(sort: String, limit: Int, start: Int, where: JSON): [Subscriber]
+  subscribersConnection(sort: String, limit: Int, start: Int, where: JSON): SubscriberConnection
+  tip(id: ID!): Tip
+  tips(sort: String, limit: Int, start: Int, where: JSON): [Tip]
+  tipsConnection(sort: String, limit: Int, start: Int, where: JSON): TipConnection
+  tipscomment(id: ID!): Tipscomment
+  tipscomments(sort: String, limit: Int, start: Int, where: JSON): [Tipscomment]
+  tipscommentsConnection(sort: String, limit: Int, start: Int, where: JSON): TipscommentConnection
   files(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
   filesConnection(sort: String, limit: Int, start: Int, where: JSON): UploadFileConnection
   role(id: ID!): UsersPermissionsRole
@@ -571,6 +897,111 @@ input RoleInput {
   type: String
   permissions: [ID]
   users: [ID]
+}
+
+"""Soluções OrtoConecta (casos clinicos atuais)."""
+type Solution {
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  case_title: String!
+  patient_name: String!
+  patient_age: String!
+  main_complaint: String!
+  patient_genre: String!
+  skin_type: String!
+  keywords: String!
+  material: UploadFile
+}
+
+type SolutionAggregator {
+  count: Int
+}
+
+type SolutionConnection {
+  values: [Solution]
+  groupBy: SolutionGroupBy
+  aggregate: SolutionAggregator
+}
+
+type SolutionConnection_id {
+  key: ID
+  connection: SolutionConnection
+}
+
+type SolutionConnectionCase_title {
+  key: String
+  connection: SolutionConnection
+}
+
+type SolutionConnectionCreatedAt {
+  key: DateTime
+  connection: SolutionConnection
+}
+
+type SolutionConnectionKeywords {
+  key: String
+  connection: SolutionConnection
+}
+
+type SolutionConnectionMain_complaint {
+  key: String
+  connection: SolutionConnection
+}
+
+type SolutionConnectionMaterial {
+  key: ID
+  connection: SolutionConnection
+}
+
+type SolutionConnectionPatient_age {
+  key: String
+  connection: SolutionConnection
+}
+
+type SolutionConnectionPatient_genre {
+  key: String
+  connection: SolutionConnection
+}
+
+type SolutionConnectionPatient_name {
+  key: String
+  connection: SolutionConnection
+}
+
+type SolutionConnectionSkin_type {
+  key: String
+  connection: SolutionConnection
+}
+
+type SolutionConnectionUpdatedAt {
+  key: DateTime
+  connection: SolutionConnection
+}
+
+type SolutionGroupBy {
+  _id: [SolutionConnection_id]
+  createdAt: [SolutionConnectionCreatedAt]
+  updatedAt: [SolutionConnectionUpdatedAt]
+  case_title: [SolutionConnectionCase_title]
+  patient_name: [SolutionConnectionPatient_name]
+  patient_age: [SolutionConnectionPatient_age]
+  main_complaint: [SolutionConnectionMain_complaint]
+  patient_genre: [SolutionConnectionPatient_genre]
+  skin_type: [SolutionConnectionSkin_type]
+  keywords: [SolutionConnectionKeywords]
+  material: [SolutionConnectionMaterial]
+}
+
+input SolutionInput {
+  case_title: String!
+  patient_name: String!
+  patient_age: String!
+  main_complaint: String!
+  patient_genre: String!
+  skin_type: String!
+  keywords: String!
+  material: ID
 }
 
 """Especialidades ligadas à Orto Conecta"""
@@ -670,6 +1101,203 @@ input SpecialityInput {
   publishedAt: DateTime!
 }
 
+"""Emails para Newsletter"""
+type Subscriber {
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  email: String
+}
+
+type SubscriberAggregator {
+  count: Int
+}
+
+type SubscriberConnection {
+  values: [Subscriber]
+  groupBy: SubscriberGroupBy
+  aggregate: SubscriberAggregator
+}
+
+type SubscriberConnection_id {
+  key: ID
+  connection: SubscriberConnection
+}
+
+type SubscriberConnectionCreatedAt {
+  key: DateTime
+  connection: SubscriberConnection
+}
+
+type SubscriberConnectionEmail {
+  key: String
+  connection: SubscriberConnection
+}
+
+type SubscriberConnectionUpdatedAt {
+  key: DateTime
+  connection: SubscriberConnection
+}
+
+type SubscriberGroupBy {
+  _id: [SubscriberConnection_id]
+  createdAt: [SubscriberConnectionCreatedAt]
+  updatedAt: [SubscriberConnectionUpdatedAt]
+  email: [SubscriberConnectionEmail]
+}
+
+input SubscriberInput {
+  email: String
+}
+
+type Tip {
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  video_url: String!
+  title: String!
+  tipsComments(sort: String, limit: Int, start: Int, where: JSON): [Tipscomment]
+}
+
+type TipAggregator {
+  count: Int
+}
+
+type TipConnection {
+  values: [Tip]
+  groupBy: TipGroupBy
+  aggregate: TipAggregator
+}
+
+type TipConnection_id {
+  key: ID
+  connection: TipConnection
+}
+
+type TipConnectionCreatedAt {
+  key: DateTime
+  connection: TipConnection
+}
+
+type TipConnectionTitle {
+  key: String
+  connection: TipConnection
+}
+
+type TipConnectionUpdatedAt {
+  key: DateTime
+  connection: TipConnection
+}
+
+type TipConnectionVideo_url {
+  key: String
+  connection: TipConnection
+}
+
+type TipGroupBy {
+  _id: [TipConnection_id]
+  createdAt: [TipConnectionCreatedAt]
+  updatedAt: [TipConnectionUpdatedAt]
+  video_url: [TipConnectionVideo_url]
+  title: [TipConnectionTitle]
+}
+
+input TipInput {
+  video_url: String!
+  title: String!
+  tipsComments: [ID]
+}
+
+"""Comentários na aba Dicas"""
+type Tipscomment {
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  author_email: String!
+  author: String!
+  date: DateTime!
+  tip: Tip
+  body: String!
+}
+
+type TipscommentAggregator {
+  count: Int
+}
+
+type TipscommentConnection {
+  values: [Tipscomment]
+  groupBy: TipscommentGroupBy
+  aggregate: TipscommentAggregator
+}
+
+type TipscommentConnection_id {
+  key: ID
+  connection: TipscommentConnection
+}
+
+type TipscommentConnectionAuthor {
+  key: String
+  connection: TipscommentConnection
+}
+
+type TipscommentConnectionAuthor_email {
+  key: String
+  connection: TipscommentConnection
+}
+
+type TipscommentConnectionBody {
+  key: String
+  connection: TipscommentConnection
+}
+
+type TipscommentConnectionCreatedAt {
+  key: DateTime
+  connection: TipscommentConnection
+}
+
+type TipscommentConnectionDate {
+  key: DateTime
+  connection: TipscommentConnection
+}
+
+type TipscommentConnectionTip {
+  key: ID
+  connection: TipscommentConnection
+}
+
+type TipscommentConnectionUpdatedAt {
+  key: DateTime
+  connection: TipscommentConnection
+}
+
+type TipscommentGroupBy {
+  _id: [TipscommentConnection_id]
+  createdAt: [TipscommentConnectionCreatedAt]
+  updatedAt: [TipscommentConnectionUpdatedAt]
+  author_email: [TipscommentConnectionAuthor_email]
+  author: [TipscommentConnectionAuthor]
+  date: [TipscommentConnectionDate]
+  tip: [TipscommentConnectionTip]
+  body: [TipscommentConnectionBody]
+}
+
+input TipscommentInput {
+  author_email: String!
+  author: String!
+  date: DateTime!
+  tip: ID
+  body: String!
+}
+
+input updateActualInput {
+  where: InputID
+  data: ActualInput
+}
+
+type updateActualPayload {
+  actual: Actual
+}
+
 input updateCommentInput {
   where: InputID
   data: CommentInput
@@ -706,6 +1334,15 @@ type updateMaterialPayload {
   material: Material
 }
 
+input updateProfessionalInput {
+  where: InputID
+  data: ProfessionalInput
+}
+
+type updateProfessionalPayload {
+  professional: Professional
+}
+
 input updateRoleInput {
   where: InputID
   data: RoleInput
@@ -715,6 +1352,15 @@ type updateRolePayload {
   role: UsersPermissionsRole
 }
 
+input updateSolutionInput {
+  where: InputID
+  data: SolutionInput
+}
+
+type updateSolutionPayload {
+  solution: Solution
+}
+
 input updateSpecialityInput {
   where: InputID
   data: SpecialityInput
@@ -722,6 +1368,33 @@ input updateSpecialityInput {
 
 type updateSpecialityPayload {
   speciality: Speciality
+}
+
+input updateSubscriberInput {
+  where: InputID
+  data: SubscriberInput
+}
+
+type updateSubscriberPayload {
+  subscriber: Subscriber
+}
+
+input updateTipInput {
+  where: InputID
+  data: TipInput
+}
+
+type updateTipPayload {
+  tip: Tip
+}
+
+input updateTipscommentInput {
+  where: InputID
+  data: TipscommentInput
+}
+
+type updateTipscommentPayload {
+  tipscomment: Tipscomment
 }
 
 input updateUserInput {

@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/professionals",
+      "handler": "Professional.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/professionals/count",
+      "handler": "Professional.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/professionals/:_id",
+      "handler": "Professional.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/professionals",
+      "handler": "Professional.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/professionals/:_id",
+      "handler": "Professional.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/professionals/:_id",
+      "handler": "Professional.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

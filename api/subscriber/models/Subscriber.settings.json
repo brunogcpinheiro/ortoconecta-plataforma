@@ -1,0 +1,17 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "subscriber",
+    "description": "Emails para Newsletter"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "email": {
+      "default": "",
+      "type": "string"
+    }
+  }
+}

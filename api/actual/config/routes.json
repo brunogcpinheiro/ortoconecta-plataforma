@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/actuals",
+      "handler": "Actual.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/actuals/count",
+      "handler": "Actual.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/actuals/:_id",
+      "handler": "Actual.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/actuals",
+      "handler": "Actual.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/actuals/:_id",
+      "handler": "Actual.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/actuals/:_id",
+      "handler": "Actual.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
