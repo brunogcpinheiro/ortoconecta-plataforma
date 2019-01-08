@@ -313,6 +313,14 @@ type createExperiencePayload {
   experience: Experience
 }
 
+input createInterviewInput {
+  data: InterviewInput
+}
+
+type createInterviewPayload {
+  interview: Interview
+}
+
 input createMaterialInput {
   data: MaterialInput
 }
@@ -420,6 +428,14 @@ input deleteExperienceInput {
 
 type deleteExperiencePayload {
   experience: Experience
+}
+
+input deleteInterviewInput {
+  where: InputID
+}
+
+type deleteInterviewPayload {
+  interview: Interview
 }
 
 input deleteMaterialInput {
@@ -601,6 +617,63 @@ input InputID {
   id: ID!
 }
 
+"""Área de entrevistas de profissionais."""
+type Interview {
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  video_url: String!
+  title: String!
+}
+
+type InterviewAggregator {
+  count: Int
+}
+
+type InterviewConnection {
+  values: [Interview]
+  groupBy: InterviewGroupBy
+  aggregate: InterviewAggregator
+}
+
+type InterviewConnection_id {
+  key: ID
+  connection: InterviewConnection
+}
+
+type InterviewConnectionCreatedAt {
+  key: DateTime
+  connection: InterviewConnection
+}
+
+type InterviewConnectionTitle {
+  key: String
+  connection: InterviewConnection
+}
+
+type InterviewConnectionUpdatedAt {
+  key: DateTime
+  connection: InterviewConnection
+}
+
+type InterviewConnectionVideo_url {
+  key: String
+  connection: InterviewConnection
+}
+
+type InterviewGroupBy {
+  _id: [InterviewConnection_id]
+  createdAt: [InterviewConnectionCreatedAt]
+  updatedAt: [InterviewConnectionUpdatedAt]
+  video_url: [InterviewConnectionVideo_url]
+  title: [InterviewConnectionTitle]
+}
+
+input InterviewInput {
+  video_url: String!
+  title: String!
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -703,7 +776,7 @@ input MaterialInput {
   author: String!
 }
 
-union Morph = Actual | createActualPayload | updateActualPayload | deleteActualPayload | ActualConnection | ActualAggregator | ActualGroupBy | ActualConnection_id | ActualConnectionCreatedAt | ActualConnectionUpdatedAt | ActualConnectionCase_title | ActualConnectionPatient_name | ActualConnectionPatient_age | ActualConnectionMain_complaint | ActualConnectionPatient_genre | ActualConnectionSkin_type | ActualConnectionKeywords | ActualConnectionMaterial | Comment | createCommentPayload | updateCommentPayload | deleteCommentPayload | CommentConnection | CommentAggregator | CommentGroupBy | CommentConnection_id | CommentConnectionCreatedAt | CommentConnectionUpdatedAt | CommentConnectionAuthor | CommentConnectionDate | CommentConnectionBody | CommentConnectionAuthor_email | CommentConnectionExperience | Course | createCoursePayload | updateCoursePayload | deleteCoursePayload | CourseConnection | CourseAggregator | CourseGroupBy | CourseConnection_id | CourseConnectionCreatedAt | CourseConnectionUpdatedAt | CourseConnectionTitle | CourseConnectionCourse_image | CourseConnectionSold_out | CourseConnectionPrice | CourseConnectionLocal | CourseConnectionDate_event | CourseConnectionAuthor | Experience | createExperiencePayload | updateExperiencePayload | deleteExperiencePayload | ExperienceConnection | ExperienceAggregator | ExperienceGroupBy | ExperienceConnection_id | ExperienceConnectionCreatedAt | ExperienceConnectionUpdatedAt | ExperienceConnectionTitle | ExperienceConnectionDescription | ExperienceConnectionThumbnail | ExperienceConnectionPublished_at | ExperienceConnectionVideo_url | ExperienceConnectionLikes | Material | createMaterialPayload | updateMaterialPayload | deleteMaterialPayload | MaterialConnection | MaterialAggregator | MaterialGroupBy | MaterialConnection_id | MaterialConnectionCreatedAt | MaterialConnectionUpdatedAt | MaterialConnectionTitle | MaterialConnectionPublishedAt | MaterialConnectionMaterial | MaterialConnectionDescription | MaterialConnectionMaterial_image | MaterialConnectionPages | MaterialConnectionAuthor | Professional | createProfessionalPayload | updateProfessionalPayload | deleteProfessionalPayload | ProfessionalConnection | ProfessionalAggregator | ProfessionalGroupBy | ProfessionalConnection_id | ProfessionalConnectionCreatedAt | ProfessionalConnectionUpdatedAt | ProfessionalConnectionName | ProfessionalConnectionSpeciality | ProfessionalConnectionImage | ProfessionalConnectionEmail | ProfessionalConnectionTelephone | ProfessionalConnectionClinical | Solution | createSolutionPayload | updateSolutionPayload | deleteSolutionPayload | SolutionConnection | SolutionAggregator | SolutionGroupBy | SolutionConnection_id | SolutionConnectionCreatedAt | SolutionConnectionUpdatedAt | SolutionConnectionCase_title | SolutionConnectionPatient_name | SolutionConnectionPatient_age | SolutionConnectionMain_complaint | SolutionConnectionPatient_genre | SolutionConnectionSkin_type | SolutionConnectionKeywords | SolutionConnectionMaterial | Speciality | createSpecialityPayload | updateSpecialityPayload | deleteSpecialityPayload | SpecialityConnection | SpecialityAggregator | SpecialityGroupBy | SpecialityConnection_id | SpecialityConnectionCreatedAt | SpecialityConnectionUpdatedAt | SpecialityConnectionTitle | SpecialityConnectionAuthor | SpecialityConnectionAuthor_avatar | SpecialityConnectionArticle | SpecialityConnectionSpeciality | SpecialityConnectionMaterial | SpecialityConnectionPublishedAt | Subscriber | createSubscriberPayload | updateSubscriberPayload | deleteSubscriberPayload | SubscriberConnection | SubscriberAggregator | SubscriberGroupBy | SubscriberConnection_id | SubscriberConnectionCreatedAt | SubscriberConnectionUpdatedAt | SubscriberConnectionEmail | Tip | createTipPayload | updateTipPayload | deleteTipPayload | TipConnection | TipAggregator | TipGroupBy | TipConnection_id | TipConnectionCreatedAt | TipConnectionUpdatedAt | TipConnectionVideo_url | TipConnectionTitle | Tipscomment | createTipscommentPayload | updateTipscommentPayload | deleteTipscommentPayload | TipscommentConnection | TipscommentAggregator | TipscommentGroupBy | TipscommentConnection_id | TipscommentConnectionCreatedAt | TipscommentConnectionUpdatedAt | TipscommentConnectionAuthor_email | TipscommentConnectionAuthor | TipscommentConnectionDate | TipscommentConnectionTip | TipscommentConnectionBody | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
+union Morph = Actual | createActualPayload | updateActualPayload | deleteActualPayload | ActualConnection | ActualAggregator | ActualGroupBy | ActualConnection_id | ActualConnectionCreatedAt | ActualConnectionUpdatedAt | ActualConnectionCase_title | ActualConnectionPatient_name | ActualConnectionPatient_age | ActualConnectionMain_complaint | ActualConnectionPatient_genre | ActualConnectionSkin_type | ActualConnectionKeywords | ActualConnectionMaterial | Comment | createCommentPayload | updateCommentPayload | deleteCommentPayload | CommentConnection | CommentAggregator | CommentGroupBy | CommentConnection_id | CommentConnectionCreatedAt | CommentConnectionUpdatedAt | CommentConnectionAuthor | CommentConnectionDate | CommentConnectionBody | CommentConnectionAuthor_email | CommentConnectionExperience | Course | createCoursePayload | updateCoursePayload | deleteCoursePayload | CourseConnection | CourseAggregator | CourseGroupBy | CourseConnection_id | CourseConnectionCreatedAt | CourseConnectionUpdatedAt | CourseConnectionTitle | CourseConnectionCourse_image | CourseConnectionSold_out | CourseConnectionPrice | CourseConnectionLocal | CourseConnectionDate_event | CourseConnectionAuthor | Experience | createExperiencePayload | updateExperiencePayload | deleteExperiencePayload | ExperienceConnection | ExperienceAggregator | ExperienceGroupBy | ExperienceConnection_id | ExperienceConnectionCreatedAt | ExperienceConnectionUpdatedAt | ExperienceConnectionTitle | ExperienceConnectionDescription | ExperienceConnectionThumbnail | ExperienceConnectionPublished_at | ExperienceConnectionVideo_url | ExperienceConnectionLikes | Interview | createInterviewPayload | updateInterviewPayload | deleteInterviewPayload | InterviewConnection | InterviewAggregator | InterviewGroupBy | InterviewConnection_id | InterviewConnectionCreatedAt | InterviewConnectionUpdatedAt | InterviewConnectionVideo_url | InterviewConnectionTitle | Material | createMaterialPayload | updateMaterialPayload | deleteMaterialPayload | MaterialConnection | MaterialAggregator | MaterialGroupBy | MaterialConnection_id | MaterialConnectionCreatedAt | MaterialConnectionUpdatedAt | MaterialConnectionTitle | MaterialConnectionPublishedAt | MaterialConnectionMaterial | MaterialConnectionDescription | MaterialConnectionMaterial_image | MaterialConnectionPages | MaterialConnectionAuthor | Professional | createProfessionalPayload | updateProfessionalPayload | deleteProfessionalPayload | ProfessionalConnection | ProfessionalAggregator | ProfessionalGroupBy | ProfessionalConnection_id | ProfessionalConnectionCreatedAt | ProfessionalConnectionUpdatedAt | ProfessionalConnectionName | ProfessionalConnectionSpeciality | ProfessionalConnectionImage | ProfessionalConnectionEmail | ProfessionalConnectionTelephone | ProfessionalConnectionClinical | Solution | createSolutionPayload | updateSolutionPayload | deleteSolutionPayload | SolutionConnection | SolutionAggregator | SolutionGroupBy | SolutionConnection_id | SolutionConnectionCreatedAt | SolutionConnectionUpdatedAt | SolutionConnectionCase_title | SolutionConnectionPatient_name | SolutionConnectionPatient_age | SolutionConnectionMain_complaint | SolutionConnectionPatient_genre | SolutionConnectionSkin_type | SolutionConnectionKeywords | SolutionConnectionMaterial | Speciality | createSpecialityPayload | updateSpecialityPayload | deleteSpecialityPayload | SpecialityConnection | SpecialityAggregator | SpecialityGroupBy | SpecialityConnection_id | SpecialityConnectionCreatedAt | SpecialityConnectionUpdatedAt | SpecialityConnectionTitle | SpecialityConnectionAuthor | SpecialityConnectionAuthor_avatar | SpecialityConnectionArticle | SpecialityConnectionSpeciality | SpecialityConnectionMaterial | SpecialityConnectionPublishedAt | Subscriber | createSubscriberPayload | updateSubscriberPayload | deleteSubscriberPayload | SubscriberConnection | SubscriberAggregator | SubscriberGroupBy | SubscriberConnection_id | SubscriberConnectionCreatedAt | SubscriberConnectionUpdatedAt | SubscriberConnectionEmail | Tip | createTipPayload | updateTipPayload | deleteTipPayload | TipConnection | TipAggregator | TipGroupBy | TipConnection_id | TipConnectionCreatedAt | TipConnectionUpdatedAt | TipConnectionVideo_url | TipConnectionTitle | Tipscomment | createTipscommentPayload | updateTipscommentPayload | deleteTipscommentPayload | TipscommentConnection | TipscommentAggregator | TipscommentGroupBy | TipscommentConnection_id | TipscommentConnectionCreatedAt | TipscommentConnectionUpdatedAt | TipscommentConnectionAuthor_email | TipscommentConnectionAuthor | TipscommentConnectionDate | TipscommentConnectionTip | TipscommentConnectionBody | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
 
 type Mutation {
   createActual(input: createActualInput): createActualPayload
@@ -718,6 +791,9 @@ type Mutation {
   createExperience(input: createExperienceInput): createExperiencePayload
   updateExperience(input: updateExperienceInput): updateExperiencePayload
   deleteExperience(input: deleteExperienceInput): deleteExperiencePayload
+  createInterview(input: createInterviewInput): createInterviewPayload
+  updateInterview(input: updateInterviewInput): updateInterviewPayload
+  deleteInterview(input: deleteInterviewInput): deleteInterviewPayload
   createMaterial(input: createMaterialInput): createMaterialPayload
   updateMaterial(input: updateMaterialInput): updateMaterialPayload
   deleteMaterial(input: deleteMaterialInput): deleteMaterialPayload
@@ -856,6 +932,9 @@ type Query {
   experience(id: ID!): Experience
   experiences(sort: String, limit: Int, start: Int, where: JSON): [Experience]
   experiencesConnection(sort: String, limit: Int, start: Int, where: JSON): ExperienceConnection
+  interview(id: ID!): Interview
+  interviews(sort: String, limit: Int, start: Int, where: JSON): [Interview]
+  interviewsConnection(sort: String, limit: Int, start: Int, where: JSON): InterviewConnection
   material(id: ID!): Material
   materials(sort: String, limit: Int, start: Int, where: JSON): [Material]
   materialsConnection(sort: String, limit: Int, start: Int, where: JSON): MaterialConnection
@@ -1323,6 +1402,15 @@ input updateExperienceInput {
 
 type updateExperiencePayload {
   experience: Experience
+}
+
+input updateInterviewInput {
+  where: InputID
+  data: InterviewInput
+}
+
+type updateInterviewPayload {
+  interview: Interview
 }
 
 input updateMaterialInput {
