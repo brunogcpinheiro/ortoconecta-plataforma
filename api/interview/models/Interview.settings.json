@@ -1,0 +1,23 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "interview",
+    "description": "Área de entrevistas"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "video_url": {
+      "default": "",
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "default": "",
+      "type": "string",
+      "required": true
+    }
+  }
+}
