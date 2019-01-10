@@ -1,11 +1,11 @@
 {
-  "host": "api.ortoconecta.com.br",
+  "host": "localhost",
   "port": "${process.env.PORT || 1337}",
   "proxy": {
     "enabled": false
   },
   "autoReload": {
-    "enabled": true
+    "enabled": false
   },
   "cron": {
     "enabled": false
